@@ -5,6 +5,7 @@ from django_mobile.conf import settings
 def flavour(request):
     return {
         'flavour': get_flavour(),
+        'STATIC_URL_MOBILE': settings.STATIC_URL_MOBILE,
     }
 
 

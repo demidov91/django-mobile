@@ -35,7 +35,7 @@ long_description = UltraMagicString(long_description)
 setup(
     name = 'django-mobile',
     version = '0.2.3',
-    url = 'https://github.com/gregmuellegger/django-mobile',
+    url = 'https://github.com/demidov91/django-mobile',
     license = 'BSD',
     description = u'Detect mobile browsers and serve different template flavours to them.',
     long_description = long_description,
