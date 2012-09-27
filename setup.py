@@ -34,15 +34,14 @@ long_description = UltraMagicString(long_description)
 
 setup(
     name = 'django-mobile',
-    version = '0.2.3',
+    version = '0.3',
     url = 'https://github.com/demidov91/django-mobile',
     license = 'BSD',
     description = u'Detect mobile browsers and serve different template flavours to them.',
     long_description = long_description,
-    author = UltraMagicString('Gregor Müllegger'),
-    author_email = 'gregor@muellegger.de',
+    author = UltraMagicString('Gregor Müllegger', 'Demodov Dmitry'),
+    author_email = 'demidov91@mail.ru',
     classifiers = [
-        'Development Status :: 4 - Beta',
         'Environment :: Web Environment',
         'Framework :: Django',
         'Intended Audience :: Developers',
@@ -56,6 +55,4 @@ setup(
         'django_mobile.cache',
     ],
     install_requires = ['setuptools'],
-    tests_require = ['Django', 'mock'],
-    test_suite = 'django_mobile_tests.runtests.runtests',
 )
