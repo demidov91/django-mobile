@@ -1,4 +1,3 @@
-
 django-mobile-threadsafe
 ========================
 
@@ -18,7 +17,7 @@ Last thing to remember about is **cashing** - it needs one more middleware and *
 
 
 
-Introduction:
+Introduction
 =============
 
 **django-mobile-threadsafe** provides a simple way to detect mobile browsers and gives
@@ -156,17 +155,12 @@ in the ``MIDDLEWARE_CLASSES`` settings, right before
 
 Customization
 =============
-
-.. _customization:
-
-There are some points available that let you customize the behaviour of
-**django-mobile**. Here are some possibilities listed:
+**django-mobile** is *configuarable* thanks to it's settings and *extendable*
+thank's to used *Abstract Factory* pattern. 
 
 
 Settings
 --------
-
-.. _settings:
 
 Here is a list of settings that are used by **django-mobile** and can be
 changed in your own ``settings.py``:
@@ -208,9 +202,10 @@ This determines the name of this parameter.  Set it to ``None`` to disable.
 STATIC_URL_MOBILE
 ^^^^^^^^^^^^^^^^^
 
-Analog of django's STATIC_URL. It is good practice to use it your template but not necessary. If you was fond of it on desctop version, take an advatage of it in mobile version too. 
+Analogue of django's STATIC_URL. It is good practice to use it your template but not necessary.
+If you was fond of it on desctop version, use it in mobile version too. 
 
-**Default:** ``'/media/mobile/'``
+**Default:** ``''``
 
 
 FLAVOURS_SESSION_KEY
@@ -223,8 +218,13 @@ information.
 **Default:** ``'flavour'``
 
 
-This is not directly what you want?
-=============
+*Are you pythonic enough?!*
+---------------------------
 
-*django-mobile-threadsafe* is implemented as Astract factory with django_mobile.Middleware as creater and django_mobile.DjangoMobile as product. Now it has only one implementation, this is in django_mobile.session. You can always write your own.
+*django-mobile-threadsafe* is implemented as *Abstract Factory* with ``django_mobile.Middleware`` as creator
+and ``django_mobile.DjangoMobile`` as product. Take an advantage of it, **extend** this classes, **override** only
+needed methods and **use** your own implemetation of ``Middleware`` class as middleware to be listed in
+site's ``setting.py`` instead of default ``SessionMiddleware``
+
+
 
