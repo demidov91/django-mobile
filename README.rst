@@ -1,22 +1,25 @@
-=============
+
 django-mobile-threadsafe
-=============
+========================
 
-.. _Note!:
-This is thread safe version of original *django-mobile* package. Use it if you can't gurantee that **python** part of requests processing  is served by one thread. Or if you like **explicity** of this package. Apache is not thread safe but you can configure it to use one thread for process and problem of original *django-mobile* will be resolved.
 
-:: _Differense between django-mobile-threadsafe and django-mobile
+This is thread safe version of original **django-mobile** package. Use it if you can't gurantee that *python* part of requests processing  is served by one thread. Or if you just like *explicity* of this package. Apache is not thread safe but you can configure it to use one thread for process and problem of original **django-mobile** will be resolved.
+
+
+Differense between django-mobile-threadsafe and django-mobile:
+--------------------------------------------------------------
 1. It holds only ``TemplateResponse`` responses. Syntax is practically the same as for usual ``render_to_response`` but someone may not like it.
 2. You should register separate inclusion tags for mobile version if you want to render other templates with them.
 3. You should declare template names in templatetags explicitly. For example, django-mobile uses ``{% extends base.html %}`` and  django-mobile-threadsafe uses ``{% extends mobile/base.html %}``  - that will extend the same mobile/base.html template.
 4. Yes, this is thread-safe.
 
 
-Last thing to remember about is **cashing** - it needs one more middleware and django-mobile's implementation of ``cache_page`` decorator. This is the same as original package have Original package manage it the same way. I've mantioned it only because it influnses on your views, rest of the work is going on in separate template directory.
+Last thing to remember about is **cashing** - it needs one more middleware and **django-mobile**'s implementation of ``cache_page`` decorator. Original package manage it the same way. I've mantioned it only because it influnses on your views, rest of the work is going on in separate template directory.
 
 
 
-.. _introduction:
+Introduction:
+=============
 
 **django-mobile-threadsafe** provides a simple way to detect mobile browsers and gives
 you tools at your hand to render some different templates to deliver a mobile
@@ -45,8 +48,8 @@ becomes::
 
     return TemplateResponse(request, template_name, some_dictionary_as_context)
 
-* - Oh! But what about cookies?! I can't set them without response object!* 
-    - Everything is under control. They are served by ``request.cookies_to_save.add(cookies_dictionary, path='/')`` method with the same middleware as django-mobile.
+- *Oh! But what about cookies?! I can't set them without response object!* 
+- Everything is under control! They are served by ``request.cookies_to_save.add(cookies_dictionary, path='/')`` method provided by django-mobile middleware.
 
 Installation
 ============
@@ -62,7 +65,7 @@ Installation
    ``MIDDLEWARE_CLASSES`` setting. Make sure it's listed *after* ``SessionMiddleware``.
 
 
-Thats all :) Now you should be able to use **django-mobile** in its glory. Read below of how
+Thats all. Now you should be able to use **django-mobile** in its glory. Read below of how
 things work and which settings can be tweaked to modify **django-mobile**'s
 behaviour.
 
@@ -85,15 +88,21 @@ tablets like the iPad.
 *Note:* By default **django-mobile** only distinguishes between *full* and
 *mobile* flavour.
 
-*request* object gets to your views with instansce of **DjangoMobile** class assigned to the ``flavour`` field. You can use this in your views to provide separate logic. It is very usefull to have such methods as request.flavour.**is_mobile**, request.flavour.**is_default** or request.flavour.**get** in your python view. First to methods return boolean value, last one - string, name of the flavour.
+``request`` object gets to your views with instansce of ``DjangoMobile`` 
+class assigned to the ``flavour`` field. You can use this in your views to provide 
+separate logic. It is very usefull to have such methods as ``request.flavour.is_mobile`` , 
+``request.flavour.is_default`` or ``request.flavour.get`` in your python view.
+First two methods return boolean value, last one returns string - name of the flavour.
 
 This flavour is then use to transparently choose custom templates for this
 special flavour. The selected template will have the current flavour prefixed
 to the template name you actually want to render. This means when
-``TemplateResponse('index.html', ...)`` is called with the *mobile* flavour
+``TemplateResponse(request, 'index.html', ...)`` is called with the *mobile* flavour
 being active will actually return a response rendered with the
 ``mobile/index.html`` template. But if this flavoured template is not
-available it will gracefully fallback to the default ``index.html`` template only if you was using HttpResponse object instead of TemplateResponse to render that template. I'll try to make TemplateResponse object work in the same way in the next version. 
+available it will gracefully fallback to the default ``index.html`` template only 
+if you was using ``HttpResponse`` object instead of ``TemplateResponse`` to render that template.
+I'll try to make TemplateResponse work in the same way in the next version. 
 
 
 Changing the current flavour
@@ -103,12 +112,11 @@ The basic use case of **django-mobile** is obviously to serve a mobile version
 of your site to users. The selection of the correct flavour is usually already
 done in the middlewares when your own views are called. In some cases you want
 to change the currently used flavour in your view or somewhere else. You can
-do this by simply calling ``django_mobile.set_flavour(flavour)``. The first argument is self explaining. But keep in mind that you only can pass in a flavour that you is also in your ``FLAVOURS``
-setting. Otherwise ``set_flavour`` will raise a ``ValueError``. The optional
-``permanent`` parameters defines if the change of the flavour is remember for
-future requests of the same client.
+do this by simply calling ``request.flavour.set(flavour)``. But keep in mind 
+that you only can pass in a flavour that you is also in your ``FLAVOURS``
+setting. Otherwise ``flavour.set`` will raise a ``ValueError``. 
 
-Your users can set their desired flavour them self. They just need to specify
+Your users can set their desired flavour themselves. They just need to specify
 the ``flavour`` GET parameter on a request to your site. This will permanently
 choose this flavour as their preference to view the site.
 
