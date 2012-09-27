@@ -73,6 +73,8 @@ class MobileDetectionMiddleware(object):
 
         if is_mobile:
             set_flavour(settings.DEFAULT_MOBILE_FLAVOUR, request)
+        else:
+            set_flavour(settings.FLAVOURS[0], request)
 
 
 class DetectClientPlatformMiddleware(object):

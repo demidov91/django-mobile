@@ -1,6 +1,16 @@
 Changlog
 ========
 
+0.2.4
+-----
+* Added platform recognizing.
+
+
+0.2.3
+-----
+* STATIC_URL_MOBILE variable is added to context 
+
+
 0.2.2
 -----
 

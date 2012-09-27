@@ -29,6 +29,6 @@ class defaults(object):
         if loader != 'django_mobile.loader.Loader':
             FLAVOURS_TEMPLATE_LOADERS.append(loader)
     FLAVOURS_TEMPLATE_LOADERS = tuple(FLAVOURS_TEMPLATE_LOADERS)
-
+    STATIC_URL_MOBILE = ''
 
 settings = SettingsProxy(django_settings, defaults)
