@@ -1,10 +1,6 @@
 Changlog
 ========
 
-0.2.4
------
-* Added platform recognizing.
-
 
 0.2.3
 -----
